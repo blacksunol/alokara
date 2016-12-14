@@ -59,7 +59,7 @@ app.post("/songs", function(req, res) {
   newSong.createDate = new Date();
 
   if (!(req.body.number || req.body.name)) {
-    handleError(res, "Invalid user input", "Must provide a number or name.", 400);
+    handleError(res, "Invalid user input", "Must provide number or name of song.", 400);
   }
 
   db.collection(SONGS_COLLECTION).insertOne(newSong, function(err, doc) {
