@@ -70,7 +70,7 @@ angular.module("contactsApp", ['ngRoute'])
                 });
         }
     })
-    .controller("ListController", function(contacts, $scope) {
+    .controller("ListController", function(songs, $scope) {
         $scope.songs = songs.data;
     })
     .controller("NewSongController", function($scope, $location, Songs) {
