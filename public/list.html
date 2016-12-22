@@ -15,7 +15,7 @@
 <div class="container">
   <table class="table table-hover">
     <tbody>
-      <tr ng-repeat="song in songs | orderBy:'lastName'" style="cursor:pointer">
+      <tr ng-repeat="song in songs | orderBy:'number'" style="cursor:pointer">
         <td>
           <a ng-href="#/song/{{song._id}}">{{ song.number }} {{ song.name }}</a>
         </td>
