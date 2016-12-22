@@ -5,112 +5,112 @@ angular.module("contactsApp", ['ngRoute'])
                 templateUrl: "list.html",
                 controller: "ListController",
                 resolve: {
-                    contacts: function(Contacts) {
-                        return Contacts.getContacts();
+                    songs: function(Songs) {
+                        return Songs.getSongs();
                     }
                 }
             })
-            .when("/new/contact", {
-                controller: "NewContactController",
-                templateUrl: "contact-form.html"
+            .when("/new/song", {
+                controller: "NewSongController",
+                templateUrl: "song-form.html"
             })
-            .when("/contact/:contactId", {
-                controller: "EditContactController",
-                templateUrl: "contact.html"
+            .when("/song/:songId", {
+                controller: "EditSongController",
+                templateUrl: "song.html"
             })
             .otherwise({
                 redirectTo: "/"
             })
     })
-    .service("Contacts", function($http) {
-        this.getContacts = function() {
-            return $http.get("/contacts").
+    .service("Songs", function($http) {
+        this.getSongs = function() {
+            return $http.get("/songs").
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error finding contacts.");
+                    alert("Error finding songs.");
                 });
         }
-        this.createContact = function(contact) {
-            return $http.post("/contacts", contact).
+        this.createSong = function(song) {
+            return $http.post("/songs", song).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error creating contact.");
+                    alert("Error creating song.");
                 });
         }
-        this.getContact = function(contactId) {
-            var url = "/contacts/" + contactId;
+        this.getSong = function(songId) {
+            var url = "/songs/" + songId;
             return $http.get(url).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error finding this contact.");
+                    alert("Error finding this song.");
                 });
         }
-        this.editContact = function(contact) {
-            var url = "/contacts/" + contact._id;
-            console.log(contact._id);
-            return $http.put(url, contact).
+        this.editSong = function(song) {
+            var url = "/songs/" + song._id;
+            console.log(song._id);
+            return $http.put(url, song).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error editing this contact.");
+                    alert("Error editing this song.");
                     console.log(response);
                 });
         }
-        this.deleteContact = function(contactId) {
-            var url = "/contacts/" + contactId;
+        this.deleteSong = function(songId) {
+            var url = "/songs/" + songId;
             return $http.delete(url).
                 then(function(response) {
                     return response;
                 }, function(response) {
-                    alert("Error deleting this contact.");
+                    alert("Error deleting this song.");
                     console.log(response);
                 });
         }
     })
     .controller("ListController", function(contacts, $scope) {
-        $scope.contacts = contacts.data;
+        $scope.songs = songs.data;
     })
-    .controller("NewContactController", function($scope, $location, Contacts) {
+    .controller("NewSongController", function($scope, $location, Songs) {
         $scope.back = function() {
             $location.path("#/");
         }
 
-        $scope.saveContact = function(contact) {
-            Contacts.createContact(contact).then(function(doc) {
-                var contactUrl = "/contact/" + doc.data._id;
-                $location.path(contactUrl);
+        $scope.saveSong = function(song) {
+            Songs.createSong(song).then(function(doc) {
+                var songUrl = "/song/" + doc.data._id;
+                $location.path(songUrl);
             }, function(response) {
                 alert(response);
             });
         }
     })
-    .controller("EditContactController", function($scope, $routeParams, Contacts) {
-        Contacts.getContact($routeParams.contactId).then(function(doc) {
-            $scope.contact = doc.data;
+    .controller("EditSongController", function($scope, $routeParams, Songs) {
+        Songs.getSong($routeParams.songId).then(function(doc) {
+            $scope.song = doc.data;
         }, function(response) {
             alert(response);
         });
 
         $scope.toggleEdit = function() {
             $scope.editMode = true;
-            $scope.contactFormUrl = "contact-form.html";
+            $scope.songFormUrl = "song-form.html";
         }
 
         $scope.back = function() {
             $scope.editMode = false;
-            $scope.contactFormUrl = "";
+            $scope.songFormUrl = "";
         }
 
-        $scope.saveContact = function(contact) {
-            Contacts.editContact(contact);
+        $scope.saveSong = function(song) {
+            Songs.editSong(song);
             $scope.editMode = false;
-            $scope.contactFormUrl = "";
+            $scope.songFormUrl = "";
         }
 
-        $scope.deleteContact = function(contactId) {
-            Contacts.deleteContact(contactId);
+        $scope.deleteSong = function(songId) {
+            Songs.deleteSong(songId);
         }
     });
