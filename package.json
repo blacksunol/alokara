@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/blacksunol/alono.git"
+    "url": "https://github.com/blacksunol/alokara.git"
   },
   "keywords": [
     "MEAN",
@@ -19,9 +19,9 @@
   "author": "Chris Chang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blacksunol/alono/issues"
+    "url": "https://github.com/blacksunol/alokara/issues"
   },
-  "homepage": "https://github.com/blacksunol/alono",
+  "homepage": "https://github.com/blacksunol/alokara",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
